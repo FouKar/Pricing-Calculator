@@ -52,21 +52,26 @@
                   class="form-control"
                   name="price"
                   aria-describedby="priceHelp"
-                  value="30"
+                  value="20"
                 />
               </div>
               <div class="form-group">
-                <label for="qty">Quantity</label
+                <label for="qty">Quantity
+                  <span class="label label-primary quantity-label">1</span>
+                </label
                 ><input
-                  type="number"
+                  type="range"
                   class="form-control"
                   name="qty"
                   aria-describedby="qtyHelp"
                   value="1"
+                  min="1"
+                  max="100"
+                  step="1"
                 />
               </div>
             </form>
-            <div class="text-right text-giant total">$30</div>
+            <div class="text-right text-giant total"></div>
           </div>
         </div>
       </div>
@@ -78,16 +83,24 @@
       const priceInput = document.querySelector("[name='price']");
       const qtyInput = document.querySelector("[name='qty']");
       const total = document.querySelector(".total");
+      const qtyLbl= document.querySelector(".quantity-label");
       //Create functions
       function calcPieCost() {
         const price = priceInput.value;
         const quantity = qtyInput.value;
         const cost = price * quantity;
-        total.innerText = "$" + cost.toString();
+        total.innerText = "$" + cost.toFixed(2);
       }
+      function updateQuantityLabel(){
+        const quantity= qtyInput.value;
+        qtyLbl.innerText= qtyInput.value;
+      }
+      //On First Run
+      calcPieCost();
       //Add event listeners
       priceInput.addEventListener("input", calcPieCost);
       qtyInput.addEventListener("input", calcPieCost);
+      qtyInput.addEventListener("input", updateQuantityLabel);
     </script>
   </body>
 </html>
